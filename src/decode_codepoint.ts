@@ -1,4 +1,4 @@
-import decodeMap from "./maps/decode.json";
+import {decode as decodeMap} from "./maps/decode.ts";
 
 // modified version of https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
 export default function decodeCodePoint(codePoint: number) {
@@ -6,8 +6,8 @@ export default function decodeCodePoint(codePoint: number) {
         return "\uFFFD";
     }
 
-    if (codePoint in decodeMap) {
-        codePoint = (decodeMap as Record<string, number>)[codePoint];
+    if (codePoint in JSON.parse(decodeMap)) {
+        codePoint = (JSON.parse(decodeMap) as Record<string, number>)[codePoint];
     }
 
     let output = "";

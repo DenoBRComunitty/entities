@@ -1,10 +1,9 @@
-import entityMap from "./maps/entities.json";
-import legacyMap from "./maps/legacy.json";
-import xmlMap from "./maps/xml.json";
+import { entities } from "./maps/entities.ts";
+import { legacy as legacyMap } from "./maps/legacy.ts";
+import { xml as xmlMap } from "./maps/xml.ts";
 import decodeCodePoint from "./decode_codepoint.ts";
-
-export const decodeXML = getStrictDecoder(xmlMap);
-export const decodeHTMLStrict = getStrictDecoder(entityMap);
+export const decodeXML = getStrictDecoder(xmlMap());
+export const decodeHTMLStrict = getStrictDecoder(entities());
 
 export interface MapType {
     [key: string]: string;
@@ -24,8 +23,8 @@ function getStrictDecoder(map: MapType) {
 const sorter = (a: string, b: string) => (a < b ? 1 : -1);
 
 export const decodeHTML = (function () {
-    const legacy = Object.keys(legacyMap).sort(sorter);
-    const keys = Object.keys(entityMap).sort(sorter);
+    const legacy = Object.keys(legacyMap()).sort(sorter);
+    const keys = Object.keys(entities()).sort(sorter);
 
     for (let i = 0, j = 0; i < keys.length; i++) {
         if (legacy[j] === keys[i]) {
@@ -40,7 +39,7 @@ export const decodeHTML = (function () {
         `&(?:${keys.join("|")}|#[xX][\\da-fA-F]+;?|#\\d+;?)`,
         "g"
     );
-    const replace = getReplacer(entityMap);
+    const replace = getReplacer(entities());
 
     function replacer(str: string): string {
         if (str.substr(-1) !== ";") str += ";";

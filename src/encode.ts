@@ -1,13 +1,13 @@
-import xmlMap from "./maps/xml.json";
+import {xml as xmlMap } from "./maps/xml.ts";
 
-const inverseXML = getInverseObj(xmlMap);
+const inverseXML = getInverseObj(xmlMap());
 const xmlReplacer = getInverseReplacer(inverseXML);
 
 export const encodeXML = getInverse(inverseXML, xmlReplacer);
 
-import htmlMap from "./maps/entities.json";
+import { entities as htmlMap } from "./maps/entities.ts";
 
-const inverseHTML = getInverseObj(htmlMap);
+const inverseHTML = getInverseObj(htmlMap());
 const htmlReplacer = getInverseReplacer(inverseHTML);
 
 export const encodeHTML = getInverse(inverseHTML, htmlReplacer);

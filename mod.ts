@@ -38,7 +38,7 @@ export {
     // Legacy aliases
     encodeHTML as encodeHTML4,
     encodeHTML as encodeHTML5,
-} from "./encode";
+} from "./src/encode.ts";
 
 export {
     decodeXML,
@@ -50,4 +50,4 @@ export {
     decodeHTMLStrict as decodeHTML4Strict,
     decodeHTMLStrict as decodeHTML5Strict,
     decodeXML as decodeXMLStrict,
-} from "./decode";
+} from "./src/decode.ts";
